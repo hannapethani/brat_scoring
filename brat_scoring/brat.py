@@ -434,8 +434,8 @@ def filename_check(fn1, fn2):
 
 
 def get_files(path, ext='.', relative=False):
-    files = list(Path(path).glob('**/*.{}'.format(ext)))
-
+    # files = list(Path(path).glob('**/*.{}'.format(ext)))
+    files = list(Path(path).glob('**/[!.]*.{}'.format(ext)))
     if relative:
         files = [os.path.relpath(f, path) for f in files]
 
@@ -447,7 +447,9 @@ def get_brat_files(path):
     '''
     # Text and annotation files
     text_files = get_files(path, TEXT_FILE_EXT, relative=False)
+    print(len(text_files))
     ann_files = get_files(path, ANN_FILE_EXT, relative=False)
+    print(len(ann_files))
 
     # Check number of text and annotation files
     msg = 'Number of text and annotation files do not match'
