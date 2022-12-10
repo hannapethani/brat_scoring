@@ -8,7 +8,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 
 from brat_scoring.constants import EXACT, LABEL, OVERLAP, PARTIAL, MIN_DIST
-from brat_scoring.constants_sdoh import STATUS_TIME, TYPE_LIVING, STATUS_EMPLOY
+from brat_scoring.constants_sdoh import STATUS_TIME, TYPE_HOUSING, STATUS_EMPLOY
 from brat_scoring.scoring import score_brat_sdoh
 from brat_scoring.constants_sdoh import LABELED_ARGUMENTS as SDOH_LABELED_ARGUMENTS
 
