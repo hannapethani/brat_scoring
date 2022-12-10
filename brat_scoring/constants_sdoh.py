@@ -83,6 +83,7 @@ HOMEMAKER = "homemaker"
 ALONE = "alone"
 WITH_FAMILY = "with_family"
 WITH_OTHERS = "with_others"
+RETIREMENT_HOME = "retirement_home"
 HOMELESS = 'homeless'
 
 
