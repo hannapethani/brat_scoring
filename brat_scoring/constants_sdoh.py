@@ -5,18 +5,26 @@
 '''
 Determinants
 '''
-ALCOHOL = 'Alcohol'
-COUNTRY = 'Country'
-DRUG = 'Drug'
-EMPLOYMENT = 'Employment'
-ENVIRO_EXPOSURE = 'EnviroExposure'
-GENDER_ID = 'GenderID'
-INSURANCE = 'Insurance'
-LIVING_STATUS = 'LivingStatus'
-PHYS_ACTIVITY = 'PhysActivity'
-RACE = 'Race'
-SEXUAL_ORIENT = 'SexualOrient'
+
 TOBACCO = 'Tobacco'
+ALCOHOL = 'Alcohol'
+METHAMPHETAMINE = 'Methamphetamine'
+SUGAR = 'Sugar'
+
+EMPLOYMENT = 'Employment'
+HOUSING = 'Housing'
+
+FOOD_INSEC = 'FoodInsecurity'
+
+# COUNTRY = 'Country'
+# DRUG = 'Drug'
+# ENVIRO_EXPOSURE = 'EnviroExposure'
+# GENDER_ID = 'GenderID'
+# INSURANCE = 'Insurance'
+# LIVING_STATUS = 'LivingStatus'
+# PHYS_ACTIVITY = 'PhysActivity'
+# RACE = 'Race'
+# SEXUAL_ORIENT = 'SexualOrient'
 
 
 '''
@@ -32,33 +40,38 @@ STATUS                  = "Status"
 STATUS_TIME             = 'StatusTime'
 STATUS_TIME_VAL         = 'StatusTimeVal'
 
-DEGREE                  = 'Degree'
-DEGREE_VAL              = 'DegreeVal'
-
 STATUS_EMPLOY           = 'StatusEmploy'
 STATUS_EMPLOY_VAL       = 'StatusEmployVal'
 
-STATUS_INSURE           = 'StatusInsure'
-STATUS_INSURE_VAL       = 'StatusInsureVal'
+TYPE_HOUSING             = 'TypeHousing'
+TYPE_HOUSING_VAL         = 'TypeHousingVal'
 
-TYPE_GENDER_ID          = 'TypeGenderID'
-TYPE_GENDER_ID_VAL      = 'TypeGenderIDVal'
+# TYPE_SEXUAL_ORIENT      = 'TypeSexualOrient'
+# TYPE_SEXUAL_ORIENT_VAL  = 'TypeSexualOrientVal'
 
-TYPE_LIVING             = 'TypeLiving'
-TYPE_LIVING_VAL         = 'TypeLivingVal'
+# STATUS_INSURE           = 'StatusInsure'
+# STATUS_INSURE_VAL       = 'StatusInsureVal'
 
-TYPE_SEXUAL_ORIENT      = 'TypeSexualOrient'
-TYPE_SEXUAL_ORIENT_VAL  = 'TypeSexualOrientVal'
+# TYPE_GENDER_ID          = 'TypeGenderID'
+# TYPE_GENDER_ID_VAL      = 'TypeGenderIDVal'
 
-LABELED_ARGUMENTS = [STATUS_TIME, STATUS_EMPLOY, TYPE_LIVING]
+# DEGREE                  = 'Degree'
+# DEGREE_VAL              = 'DegreeVal'
+
+LABELED_ARGUMENTS = [STATUS_TIME, STATUS_EMPLOY, TYPE_HOUSING]
 
 # Span only - new
-AMOUNT      = 'Amount'
-DURATION    = 'Duration'
-FREQUENCY   = 'Frequency'
-HISTORY     = 'History'
-METHOD      = 'Method'
 TYPE        = 'Type'
+METHOD      = 'Method'
+DOSE        = 'Dose'
+FREQUENCY   = 'Frequency'
+DURATION    = 'Duration'
+# HISTORY     = 'History'
+
+CURRENT = "current"
+PAST = "past"
+FUTURE = "future"
+NONE = "none"
 
 EMPLOYED = "employed"
 UNEMPLOYED = "unemployed"
@@ -66,18 +79,17 @@ RETIRED = "retired"
 ON_DISABILITY = "on_disability"
 STUDENT = "student"
 HOMEMAKER = "homemaker"
-YES = "yes"
-NO = "no"
-NONE = "none"
-CURRENT = "current"
-PAST = "past"
-FUTURE = "future"
-TRANSGENDER = "transgender"
-CISGENDER = "cisgender"
+
 ALONE = "alone"
 WITH_FAMILY = "with_family"
 WITH_OTHERS = "with_others"
 HOMELESS = 'homeless'
-HOMOSEXUAL="homosexual"
-BISEXUAL = "bisexual"
-HETEROSEXUAL = "heterosexual"
+
+
+# YES = "yes"
+# NO = "no"
+# TRANSGENDER = "transgender"
+# CISGENDER = "cisgender"
+# HOMOSEXUAL="homosexual"
+# BISEXUAL = "bisexual"
+# HETEROSEXUAL = "heterosexual"
