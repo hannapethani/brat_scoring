@@ -71,7 +71,6 @@ DURATION    = 'Duration'
 CURRENT = "current"
 PAST = "past"
 FUTURE = "future"
-NONE = "none"
 
 EMPLOYED = "employed"
 UNEMPLOYED = "unemployed"
