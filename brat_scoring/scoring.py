@@ -793,7 +793,7 @@ def score_docs(gold_docs, predict_docs, labeled_args, \
                                 event_types = event_types,
                                 argument_types = argument_types)
 
-
+        df_detailed['test'] = 'test'
     if score_span != C.PARTIAL:
         df_summary = insert_total_row(df_summary)
 
