@@ -706,7 +706,7 @@ def score_events(ids, gold, predict, labeled_args, \
         tp_corpus += tp_doc
 
     df_detailed = pd.concat(dfs)
-    df_detailed['gold'] = gold # added this
+    df_detailed['gold'] = 'test' # added this
     df_summary = get_event_df(nt_corpus, np_corpus, tp_corpus)
 
     return (df_summary, df_detailed)
