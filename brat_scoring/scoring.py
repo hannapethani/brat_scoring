@@ -708,7 +708,7 @@ def score_events(ids, gold, predict, labeled_args, \
     df_detailed = pd.concat(dfs)
     df_detailed['gold'] = 'test' # added this
     df_summary = get_event_df(nt_corpus, np_corpus, tp_corpus)
-
+    df_summary['boo'] = 'boo'
     return (df_summary, df_detailed)
 
 
@@ -793,7 +793,6 @@ def score_docs(gold_docs, predict_docs, labeled_args, \
                                 event_types = event_types,
                                 argument_types = argument_types)
 
-        df_detailed['test'] = 'test'
     if score_span != C.PARTIAL:
         df_summary = insert_total_row(df_summary)
 
