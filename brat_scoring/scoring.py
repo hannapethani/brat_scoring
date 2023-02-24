@@ -699,7 +699,7 @@ def score_events(ids, gold, predict, labeled_args, \
 
         df = get_event_df(nt_doc, np_doc, tp_doc)
         df.insert(0, 'id', id)
-        df['g'] = g
+        df.insert(1, 'g', g)
         df['p'] = p
         dfs.append(df)
 
