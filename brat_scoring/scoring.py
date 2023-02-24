@@ -699,6 +699,8 @@ def score_events(ids, gold, predict, labeled_args, \
 
         df = get_event_df(nt_doc, np_doc, tp_doc)
         df.insert(0, 'id', id)
+        df['g'] = g
+        df['p'] = p
         dfs.append(df)
 
         nt_corpus += nt_doc
@@ -706,9 +708,8 @@ def score_events(ids, gold, predict, labeled_args, \
         tp_corpus += tp_doc
 
     df_detailed = pd.concat(dfs)
-    df_detailed['gold'] = 'test' # added this
+    
     df_summary = get_event_df(nt_corpus, np_corpus, tp_corpus)
-    df_summary['boo'] = 'boo'
     return (df_summary, df_detailed)
 
 
