@@ -703,7 +703,7 @@ def score_events(ids, gold, predict, labeled_args, \
     include_subtype: include subtype in result, as bool
     '''
 
-    '''Below is an addition I've made (HP) to store a comparison of gold and predict annotations at the span level.'''
+    '''Additions made to store a comparison of gold and predict annotations at the span level.'''
     g_id = []
     g_event_idx = []
     g_ent_idx = []
@@ -733,7 +733,7 @@ def score_events(ids, gold, predict, labeled_args, \
         'g_text': g_text}
     
     df_g = pd.DataFrame.from_dict(g_dict)
-    os.chdir('/Users/farhana/GitHub/dentalNLP/1_sdoh/2_annotated_corpus/iaa/0_test')
+    os.chdir('/Volumes/PRJ-DENTALNLP/1_sdoh/4_iaa/0_test')
     df_g.to_csv('g.csv', index=False)
     
     p_id = []
