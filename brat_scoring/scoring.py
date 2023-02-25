@@ -733,7 +733,8 @@ def score_events(ids, gold, predict, labeled_args, \
         'g_text': g_text}
     
     df_g = pd.DataFrame.from_dict(g_dict)
-    df_g.to_csv('/Users/farhana/GitHub/dentalNLP/g.csv', index=False)
+    os.chdir('/Users/farhana/GitHub/dentalNLP/1_sdoh/2_annotated_corpus/iaa/0_test')
+    df_g.to_csv('g.csv', index=False)
     
     p_id = []
     p_event_idx = []
@@ -765,7 +766,10 @@ def score_events(ids, gold, predict, labeled_args, \
     }
 
     df_p = pd.DataFrame.from_dict(p_dict)
-    df_p.to_csv('/Users/farhana/GitHub/dentalNLP/p.csv', index=False)
+    df_p.to_csv('p.csv', index=False)
+
+
+    '''Back to original code from here'''
 
     assert len(gold) == len(predict)
     assert len(ids) == len(gold)
