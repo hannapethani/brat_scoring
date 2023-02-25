@@ -658,6 +658,11 @@ def score_events(ids, gold, predict, labeled_args, \
     assert len(gold) == len(predict)
     assert len(ids) == len(gold)
 
+    print(ids, gold, predict)
+    for doc in ids, gold:
+        print(doc)
+        gold
+
     nt_corpus = Counter()
     np_corpus = Counter()
     tp_corpus = Counter()
@@ -761,45 +766,47 @@ def score_docs(gold_docs, predict_docs, labeled_args, \
 
         ids.append(id)
 
-        g_id = []
-        g_event_idx = []
-        g_ent_idx = []
-        g_event = []
-        g_type = []
-        g_subtype = []
-        g_text = []
-
-        for i, gt in enumerate(gold_events):
-            print('number of gt events', len(gt))
-            for j, gp in enumerate(gt):
-                print('number of entities for event', j, len(gp.arguments))
-                for k in gt[j].arguments:
-                    g_id.append(id), g_event_idx.append(i), g_ent_idx.append(j)
-                    g_event.append(gp.type_), g_type.append(k.type_), g_subtype.append(k.subtype), g_text.append    (k.text)
-
-        g_dict = {'id': g_id, 'g_event_idx': g_event, 'g_ent_idx': g_ent_idx, 'g_event': g_event, 'g_type':     g_type, 'g_subtype': g_subtype, 'g_text': g_text}
-        df_g = pd.DataFrame.from_dict(g_dict)
-        print(df_g)
-
-        p_id = []
-        p_event_idx = []
-        p_ent_idx = []
-        p_event = []
-        p_type = []
-        p_subtype = []
-        p_text = []
-
-        for i, (pt) in enumerate(predict_events):
-            print('number of pt events', len(pt))
-            for j, pp in enumerate(pt):
-                print('number of entities for event', j, len(pp.arguments))
-                for l in pt[j].arguments:
-                    p_id.append(id), p_event_idx.append(i), p_ent_idx.append(j)
-                    p_event.append(pp.type_), p_type.append(l.type_), p_subtype.append(l.subtype), p_text.append(l.text)
+    # g_id = []
+    # g_event_idx = []
+    # g_ent_idx = []
+    # g_event = []
+    # g_type = []
+    # g_subtype = []
+    # g_text = []
     
-        p_dict = {'id': p_id, 'p_event_idx': p_event, 'p_ent_idx': p_ent_idx, 'p_event': p_event, 'p_type': p_type, 'p_subtype': p_subtype, 'p_text': p_text}  
-        df_p = pd.DataFrame.from_dict(p_dict)
-        print(df_p)
+    # for doc in ids:
+        # for i, gt in enumerate(gold_events):
+            # print('doc', ids, 'number of gt events', len(gt))
+            # for j, gp in enumerate(gt):
+                # print(doc, 'number of entities for event', j, len(gp.arguments))
+                # for k in gt[j].arguments:
+                    # print(doc, ids)
+                    # g_id.append(doc), g_event_idx.append(i), g_ent_idx.append(j)
+                    # g_event.append(gp.type_), g_type.append(k.type_), g_subtype.append(k.subtype),    g_text.append(k.text)
+
+        # # g_dict = {'id': g_id, 'g_event_idx': g_event_idx, 'g_ent_idx': g_ent_idx, 'g_event': g_event, 'g_type': g_type, 'g_subtype': g_subtype, 'g_text':g_text}
+        # df_g = pd.DataFrame.from_dict(g_dict)
+        # df_g.to_csv('/Users/farhana/GitHub/dentalNLP/g.csv', index=False)
+
+        # p_id = []
+        # p_event_idx = []
+        # p_ent_idx = []
+        # p_event = []
+        # p_type = []
+        # p_subtype = []
+        # p_text = []
+
+        # for z, pt in enumerate(predict_events):
+            # print('doc', ix, 'event', z, 'number of pt events', len(pt))
+            # for j, pp in enumerate(pt):
+                # print('number of entities for event', j, len(pp.arguments))
+                # for l in pt[j].arguments:
+                    # p_id.append(id), p_event_idx.append(i), p_ent_idx.append(j)
+                    # p_event.append(pp.type_), p_type.append(l.type_), p_subtype.append(l.subtype), p_text.append(l.text)
+
+        # # p_dict = {'id': p_id, 'p_event_idx': p_event_idx, 'p_ent_idx': p_ent_idx, 'p_event': p_event, 'p_type': p_type, 'p_subtype': p_subtype,     'p_text':p_text}  
+        # df_p = pd.DataFrame.from_dict(p_dict)
+        # df_p.to_csv('/Users/farhana/GitHub/dentalNLP/p.csv', index=False)
 
     """
     Score events
