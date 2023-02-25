@@ -206,7 +206,6 @@ def get_event_counts(events, labeled_args, \
 
     counter = Counter()
     for event in events:
-
         # Get trigger
         trigger = event.arguments[0]
 
@@ -704,6 +703,68 @@ def score_events(ids, gold, predict, labeled_args, \
     include_subtype: include subtype in result, as bool
     '''
 
+    g_id = []
+    g_event_idx = []
+    g_ent_idx = []
+    g_event = []
+    g_ent = []
+    g_attr = []
+    g_text = []
+
+    for doc_id, gold_doc in zip(ids, gold):
+        for event_idx, gold_event in enumerate(gold_doc):
+            for ent_idx, gold_ent in enumerate(gold_event.arguments):
+                g_id.append(doc_id)
+                g_event_idx.append(event_idx)
+                g_ent_idx.append(ent_idx)
+                g_event.append(gold_event.type_)
+                g_ent.append(gold_ent.type_)
+                g_attr.append(gold_ent.subtype)
+                g_text.append(gold_ent.text)
+                
+    g_dict = {
+        'g_id': g_id, 
+        'g_event_idx': g_event_idx,
+        'g_ent_idx': g_ent_idx,
+        'g_event': g_event, 
+        'g_ent': g_ent, 
+        'g_attr': g_attr, 
+        'g_text': g_text}
+    
+    df_g = pd.DataFrame.from_dict(g_dict)
+    df_g.to_csv('/Users/farhana/GitHub/dentalNLP/g.csv', index=False)
+    
+    p_id = []
+    p_event_idx = []
+    p_ent_idx = []
+    p_event = []
+    p_ent = []
+    p_attr = []
+    p_text = []
+
+    for doc_id, predict_doc in zip(ids, predict):
+        for event_idx, predict_event in enumerate(predict_doc):
+            for ent_idx, predict_ent in enumerate(predict_event.arguments):
+                p_id.append(doc_id)
+                p_event_idx.append(event_idx)
+                p_ent_idx.append(ent_idx)
+                p_event.append(predict_event.type_)
+                p_ent.append(predict_ent.type_)
+                p_attr.append(predict_ent.subtype)
+                p_text.append(predict_ent.text)
+
+    p_dict = {
+        'p_id': p_id,
+        'p_event_idx': p_event_idx,
+        'p_ent_idx': p_ent_idx,
+        'p_event': p_event,
+        'p_ent': p_ent,
+        'p_attr': p_attr,
+        'p_text': p_text
+    }
+
+    df_p = pd.DataFrame.from_dict(p_dict)
+    df_p.to_csv('/Users/farhana/GitHub/dentalNLP/p.csv', index=False)
 
     assert len(gold) == len(predict)
     assert len(ids) == len(gold)
@@ -787,7 +848,6 @@ def score_docs(gold_docs, predict_docs, labeled_args, \
     else:
         tokenizer = None
 
-
     assert isinstance(gold_docs, dict)
     assert isinstance(predict_docs, dict)
 
@@ -797,17 +857,17 @@ def score_docs(gold_docs, predict_docs, labeled_args, \
     assert len(g) == len(p), f"Document count mismatch. Gold doc count={len(g)}. Predict doc count={len(p)}"
     assert g == p, f"Document ids do not match. Gold doc ids={g}. Predict doc ids={p}"
 
-
     gold_entities = []
     predict_entities = []
     gold_events = []
     predict_events = []
     ids = []
+
     for id in gold_docs:
         gold_doc = gold_docs[id]
         predict_doc = predict_docs[id]
 
-        # not sure why these have been commented out - one theory, the # entities is inaccurate
+        # not sure why these have been commented out
         # gold_entities.append(gold_doc.entities())
         # predict_entities.append(predict_doc.entities())
 
