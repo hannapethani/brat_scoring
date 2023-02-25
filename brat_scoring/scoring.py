@@ -807,6 +807,7 @@ def score_docs(gold_docs, predict_docs, labeled_args, \
         gold_doc = gold_docs[id]
         predict_doc = predict_docs[id]
 
+        # not sure why these have been commented out - one theory, the # entities is inaccurate
         # gold_entities.append(gold_doc.entities())
         # predict_entities.append(predict_doc.entities())
 
@@ -814,7 +815,6 @@ def score_docs(gold_docs, predict_docs, labeled_args, \
         predict_events.append(predict_doc.events())
 
         ids.append(id)
-
 
     """
     Score events

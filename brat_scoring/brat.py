@@ -434,7 +434,7 @@ def filename_check(fn1, fn2):
 
 
 def get_files(path, ext='.', relative=False):
-    files = list(Path(path).glob('**/*.{}'.format(ext)))
+    files = list(Path(path).glob(f'**/[!.]*.{ext}')) # modified to ignore hidden files in OSX
 
     if relative:
         files = [os.path.relpath(f, path) for f in files]
