@@ -703,6 +703,7 @@ def score_events(ids, gold, predict, labeled_args, \
     include_subtype: include subtype in result, as bool
     '''
 
+    '''Below is an addition I've made (HP) to store a comparison of gold and predict annotations at the span level.'''
     g_id = []
     g_event_idx = []
     g_ent_idx = []
