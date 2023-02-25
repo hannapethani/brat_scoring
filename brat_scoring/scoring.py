@@ -164,8 +164,6 @@ def get_event_counts(events, labeled_args, \
     Get histogram of entity labels
     """
 
-
-
     assert score_trig in    [C.EXACT, C.OVERLAP, C.MIN_DIST]
     assert score_span in    [C.EXACT, C.OVERLAP, C.PARTIAL]
     assert score_labeled in [C.EXACT, C.OVERLAP, C.LABEL]
@@ -243,9 +241,6 @@ def has_overlap(i1, i2, j1, j2):
     return len(overlap) > 0
 
 
-
-
-
 def compare_entities(gold, predict, entity_scoring=C.EXACT, include_subtype=False,
                 tokenizer=None):
     """
@@ -270,7 +265,6 @@ def compare_entities(gold, predict, entity_scoring=C.EXACT, include_subtype=Fals
         type_match = type_match and subtype_match
 
     y = 0
-
 
 
     if type_match:
@@ -336,7 +330,7 @@ def get_entity_matches(gold, predict, labeled_args, \
     J = set([])
 
     for i, g in enumerate(gold):
-
+        
         check_entity_attributes(g)
 
         matching_j = []
@@ -344,7 +338,7 @@ def get_entity_matches(gold, predict, labeled_args, \
 
         # iterate over predicted entities
         for j, p in enumerate(predict):
-
+            
             check_entity_attributes(p)
 
             # key for counter
@@ -537,7 +531,7 @@ def get_event_matches(gold, predict, labeled_args, \
     counter = Counter()
 
     for i, j in equivalent_triggers:
-
+        
         # get gold and predicted events with equivalent triggers
         g = gold[i]
         p = predict[j]
@@ -547,7 +541,6 @@ def get_event_matches(gold, predict, labeled_args, \
 
         predict_trigger =   p.arguments[0]
         predict_arguments = p.arguments[1:]
-
 
         k = get_event_key(gold_trigger.type_, C.TRIGGER, gold_trigger.subtype)
         counter[k] += 1
@@ -561,8 +554,8 @@ def get_event_matches(gold, predict, labeled_args, \
                             event_type = gold_trigger.type_,
                             tokenizer = tokenizer
                             )
-
-    return counter
+        
+    return counter # added
 
 def get_event_df(nt, np, tp):
     '''Returns a df with counts of number of gold, predicted and true labels'''
@@ -646,8 +639,6 @@ def summarize_event_csvs(file_dict):
 
 
 
-
-
 def score_events(ids, gold, predict, labeled_args, \
                         score_trig = SCORE_TRIG,
                         score_span = SCORE_SPAN,
@@ -662,7 +653,7 @@ def score_events(ids, gold, predict, labeled_args, \
     entity_scoring: scoring type as str in ["exact", "overlap", "partial"]
     include_subtype: include subtype in result, as bool
     '''
-
+    
 
     assert len(gold) == len(predict)
     assert len(ids) == len(gold)
@@ -699,16 +690,13 @@ def score_events(ids, gold, predict, labeled_args, \
 
         df = get_event_df(nt_doc, np_doc, tp_doc)
         df.insert(0, 'id', id)
-        df.insert(1, 'g', g)
-        df['p'] = p
         dfs.append(df)
-
+    
         nt_corpus += nt_doc
         np_corpus += np_doc
         tp_corpus += tp_doc
 
     df_detailed = pd.concat(dfs)
-    
     df_summary = get_event_df(nt_corpus, np_corpus, tp_corpus)
     return (df_summary, df_detailed)
 
@@ -773,6 +761,45 @@ def score_docs(gold_docs, predict_docs, labeled_args, \
 
         ids.append(id)
 
+        g_id = []
+        g_event_idx = []
+        g_ent_idx = []
+        g_event = []
+        g_type = []
+        g_subtype = []
+        g_text = []
+
+        for i, gt in enumerate(gold_events):
+            print('number of gt events', len(gt))
+            for j, gp in enumerate(gt):
+                print('number of entities for event', j, len(gp.arguments))
+                for k in gt[j].arguments:
+                    g_id.append(id), g_event_idx.append(i), g_ent_idx.append(j)
+                    g_event.append(gp.type_), g_type.append(k.type_), g_subtype.append(k.subtype), g_text.append    (k.text)
+
+        g_dict = {'id': g_id, 'g_event_idx': g_event, 'g_ent_idx': g_ent_idx, 'g_event': g_event, 'g_type':     g_type, 'g_subtype': g_subtype, 'g_text': g_text}
+        df_g = pd.DataFrame.from_dict(g_dict)
+        print(df_g)
+
+        p_id = []
+        p_event_idx = []
+        p_ent_idx = []
+        p_event = []
+        p_type = []
+        p_subtype = []
+        p_text = []
+
+        for i, (pt) in enumerate(predict_events):
+            print('number of pt events', len(pt))
+            for j, pp in enumerate(pt):
+                print('number of entities for event', j, len(pp.arguments))
+                for l in pt[j].arguments:
+                    p_id.append(id), p_event_idx.append(i), p_ent_idx.append(j)
+                    p_event.append(pp.type_), p_type.append(l.type_), p_subtype.append(l.subtype), p_text.append(l.text)
+    
+        p_dict = {'id': p_id, 'p_event_idx': p_event, 'p_ent_idx': p_ent_idx, 'p_event': p_event, 'p_type': p_type, 'p_subtype': p_subtype, 'p_text': p_text}  
+        df_p = pd.DataFrame.from_dict(p_dict)
+        print(df_p)
 
     """
     Score events
@@ -863,7 +890,7 @@ def score_brat(gold_dir, predict_dir, labeled_args, \
                             event_types = event_types,
                             argument_types = argument_types,
                             param_dict = param_dict)
-
+    
     logging.info(f"Scoring complete")
 
     return df
