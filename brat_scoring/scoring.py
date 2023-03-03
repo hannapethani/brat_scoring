@@ -733,7 +733,7 @@ def score_events(ids, gold, predict, labeled_args, \
         'g_text': g_text}
     
     df_g = pd.DataFrame.from_dict(g_dict)
-    os.chdir('/Volumes/PRJ-DENTALNLP/1_sdoh/4_iaa/0_test')
+    os.chdir('/Volumes/PRJ-DENTALNLP/1_sdoh/4_iaa/training/session_1')
     df_g.to_csv('g.csv', index=False)
     
     p_id = []
