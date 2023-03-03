@@ -733,8 +733,6 @@ def score_events(ids, gold, predict, labeled_args, \
         'g_text': g_text}
     
     df_g = pd.DataFrame.from_dict(g_dict)
-    os.chdir('/Volumes/PRJ-DENTALNLP/1_sdoh/4_iaa/training/session_1')
-    df_g.to_csv('g.csv', index=False)
     
     p_id = []
     p_event_idx = []
@@ -766,7 +764,6 @@ def score_events(ids, gold, predict, labeled_args, \
     }
 
     df_p = pd.DataFrame.from_dict(p_dict)
-    df_p.to_csv('p.csv', index=False)
 
 
     '''Back to original code from here'''
@@ -816,7 +813,7 @@ def score_events(ids, gold, predict, labeled_args, \
 
     df_summary = get_event_df(nt_corpus, np_corpus, tp_corpus)
 
-    return (df_summary, df_detailed)
+    return df_summary, df_detailed, df_g, df_p
 
 
 def get_path(path, description=None, ext='.csv', name='scores'):
@@ -841,7 +838,8 @@ def score_docs(gold_docs, predict_docs, labeled_args, \
                             event_types = None,
                             argument_types = None,
                             param_dict = None,
-                            verbose = True):
+                            verbose = True,
+                            ):
 
 
     """
@@ -884,7 +882,7 @@ def score_docs(gold_docs, predict_docs, labeled_args, \
     """
     Score events
     """
-    df_summary, df_detailed = score_events(ids, gold_events, predict_events, \
+    df_summary, df_detailed, df_g, df_p = score_events(ids, gold_events, predict_events, \
                             labeled_args = labeled_args,
                             score_trig = score_trig,
                             score_span = score_span,
@@ -924,7 +922,7 @@ def score_docs(gold_docs, predict_docs, labeled_args, \
             if verbose:
                 logging.info(f'Document-level scoring saved to: {f}')
 
-    return df_summary
+    return df_summary, df_detailed, df_g, df_p
 
 
 
@@ -962,7 +960,7 @@ def score_brat(gold_dir, predict_dir, labeled_args, \
 
     logging.info("")
     logging.info(f"Scoring underway...")
-    df = score_docs(gold_docs, predict_docs, \
+    df_summary, df_detailed, df_g, df_p = score_docs(gold_docs, predict_docs, \
                             labeled_args = labeled_args,
                             score_trig = score_trig,
                             score_span = score_span,
@@ -977,7 +975,7 @@ def score_brat(gold_dir, predict_dir, labeled_args, \
 
     logging.info(f"Scoring complete")
 
-    return df
+    return df_summary, df_detailed, df_g, df_p
 
 
 def score_brat_sdoh(gold_dir, predict_dir, output_path, \
@@ -994,7 +992,7 @@ def score_brat_sdoh(gold_dir, predict_dir, output_path, \
     if loglevel is not None:
         logging.basicConfig(level=loglevel.upper())
 
-    df = score_brat( \
+    df_summary, df_detailed, df_g, df_p = score_brat( \
                         gold_dir = gold_dir,
                         predict_dir = predict_dir,
                         labeled_args = labeled_args, \
@@ -1007,7 +1005,7 @@ def score_brat_sdoh(gold_dir, predict_dir, output_path, \
                         description = description,
                         include_detailed = include_detailed)
 
-    return df
+    return df_summary, df_detailed, df_g, df_p
 
 
 
