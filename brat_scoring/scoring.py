@@ -710,6 +710,8 @@ def score_events(ids, gold, predict, labeled_args, \
     g_event = []
     g_ent = []
     g_attr = []
+    g_token_span = []
+    g_char_span = []
     g_text = []
 
     for doc_id, gold_doc in zip(ids, gold):
@@ -721,18 +723,23 @@ def score_events(ids, gold, predict, labeled_args, \
                 g_event.append(gold_event.type_)
                 g_ent.append(gold_ent.type_)
                 g_attr.append(gold_ent.subtype)
+                g_token_span.append((gold_ent.token_start, gold_ent.token_end))
+                g_char_span.append((gold_ent.char_start, gold_ent.char_end))
                 g_text.append(gold_ent.text)
                 
     g_dict = {
-        'g_id': g_id, 
-        'g_event_idx': g_event_idx,
-        'g_ent_idx': g_ent_idx,
-        'g_event': g_event, 
-        'g_ent': g_ent, 
-        'g_attr': g_attr, 
-        'g_text': g_text}
+        'id': g_id, 
+        'event_idx': g_event_idx,
+        'ent_idx': g_ent_idx,
+        'event': g_event, 
+        'ent': g_ent, 
+        'attr': g_attr,
+        'token_span': g_token_span,
+        'char_span': g_char_span,
+        'text': g_text}
     
     df_g = pd.DataFrame.from_dict(g_dict)
+    df_g['gold_predict'] = 'gold'
     
     p_id = []
     p_event_idx = []
@@ -740,6 +747,8 @@ def score_events(ids, gold, predict, labeled_args, \
     p_event = []
     p_ent = []
     p_attr = []
+    p_token_span = []
+    p_char_span = []
     p_text = []
 
     for doc_id, predict_doc in zip(ids, predict):
@@ -751,19 +760,33 @@ def score_events(ids, gold, predict, labeled_args, \
                 p_event.append(predict_event.type_)
                 p_ent.append(predict_ent.type_)
                 p_attr.append(predict_ent.subtype)
+                p_token_span.append((predict_ent.token_start, predict_ent.token_end))
+                p_char_span.append((predict_ent.char_start, predict_ent.char_end))
                 p_text.append(predict_ent.text)
 
     p_dict = {
-        'p_id': p_id,
-        'p_event_idx': p_event_idx,
-        'p_ent_idx': p_ent_idx,
-        'p_event': p_event,
-        'p_ent': p_ent,
-        'p_attr': p_attr,
-        'p_text': p_text
+        'id': p_id,
+        'event_idx': p_event_idx,
+        'ent_idx': p_ent_idx,
+        'event': p_event,
+        'ent': p_ent,
+        'attr': p_attr,
+        'token_span': p_token_span,
+        'char_span': p_char_span,
+        'text': p_text
     }
 
     df_p = pd.DataFrame.from_dict(p_dict)
+    df_p['gold_predict'] = 'predict'
+
+    # concatenate gold and predict entries
+    df_g_p = pd.concat([df_g, df_p])
+    # sort for comparison
+    df_g_p.sort_values(by=['id', 'event_idx', 'event', 'ent', 'attr'], inplace=True)
+
+    # only show diff
+    df_diff = df_g_p[~df_g_p.duplicated(subset=['id', 'event_idx', 'event', 'ent', 'attr', 'char_span', 'token_span', 'text'], keep=False)]
+    df_diff.reset_index(drop=True, inplace=True)
 
 
     '''Back to original code from here'''
@@ -813,7 +836,7 @@ def score_events(ids, gold, predict, labeled_args, \
 
     df_summary = get_event_df(nt_corpus, np_corpus, tp_corpus)
 
-    return df_summary, df_detailed, df_g, df_p
+    return df_summary, df_detailed, df_diff
 
 
 def get_path(path, description=None, ext='.csv', name='scores'):
@@ -882,7 +905,7 @@ def score_docs(gold_docs, predict_docs, labeled_args, \
     """
     Score events
     """
-    df_summary, df_detailed, df_g, df_p = score_events(ids, gold_events, predict_events, \
+    df_summary, df_detailed, df_diff = score_events(ids, gold_events, predict_events, \
                             labeled_args = labeled_args,
                             score_trig = score_trig,
                             score_span = score_span,
@@ -922,7 +945,7 @@ def score_docs(gold_docs, predict_docs, labeled_args, \
             if verbose:
                 logging.info(f'Document-level scoring saved to: {f}')
 
-    return df_summary, df_detailed, df_g, df_p
+    return df_summary, df_detailed, df_diff
 
 
 
@@ -960,7 +983,7 @@ def score_brat(gold_dir, predict_dir, labeled_args, \
 
     logging.info("")
     logging.info(f"Scoring underway...")
-    df_summary, df_detailed, df_g, df_p = score_docs(gold_docs, predict_docs, \
+    df_summary, df_detailed, df_diff = score_docs(gold_docs, predict_docs, \
                             labeled_args = labeled_args,
                             score_trig = score_trig,
                             score_span = score_span,
@@ -975,7 +998,7 @@ def score_brat(gold_dir, predict_dir, labeled_args, \
 
     logging.info(f"Scoring complete")
 
-    return df_summary, df_detailed, df_g, df_p
+    return df_summary, df_detailed, df_diff
 
 
 def score_brat_sdoh(gold_dir, predict_dir, output_path, \
@@ -992,7 +1015,7 @@ def score_brat_sdoh(gold_dir, predict_dir, output_path, \
     if loglevel is not None:
         logging.basicConfig(level=loglevel.upper())
 
-    df_summary, df_detailed, df_g, df_p = score_brat( \
+    df_summary, df_detailed, df_diff = score_brat( \
                         gold_dir = gold_dir,
                         predict_dir = predict_dir,
                         labeled_args = labeled_args, \
@@ -1005,7 +1028,7 @@ def score_brat_sdoh(gold_dir, predict_dir, output_path, \
                         description = description,
                         include_detailed = include_detailed)
 
-    return df_summary, df_detailed, df_g, df_p
+    return df_summary, df_detailed, df_diff
 
 
 

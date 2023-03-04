@@ -17,20 +17,18 @@ Entities
 
 TRIGGER = 'Trigger'
 
-STATUS                  = "Status"
+STATUS  = 'Status'
 
 
 # Span and class - new
-
 STATUS_TIME_             = 'status_time'
 STATUS_TIME_ATTR_        = 'status_time_attr'
 
-STATUS_EMPLOY_             = 'status_employ'
-STATUS_EMPLOY_ATTR_        = 'status_employ_attr'
+STATUS_EMPLOY_           = 'status_employ'
+STATUS_EMPLOY_ATTR_      = 'status_employ_attr'
 
-STATUS_HOUSING_            = 'status_housing'
-STATUS_HOUSING_ATTR_       = 'status_housing_attr'
-
+STATUS_HOUSING_          = 'status_housing'
+STATUS_HOUSING_ATTR_     = 'status_housing_attr'
 
 
 # Span only - new
@@ -40,7 +38,7 @@ DOSE        = 'Dose'
 FREQUENCY   = 'Frequency'
 DURATION    = 'Duration'
 HISTORY     = 'History'
-LIVES_WITH  = 'Lives With'
+LIVES_WITH  = 'Lives_With'
 
 NONE    = 'none'
 CURRENT = 'current'
@@ -59,7 +57,6 @@ HOMEMAKER     = 'homemaker'
 PRIVATE          = 'private'
 SOCIAL_HOUSING   = 'social_housing'
 OUT_OF_HOME_CARE = 'out_of_home_care'
-INPATIENT        = 'inpatient'
 PRISON           = 'prison'
 HOMELESS         = 'homeless'
 
