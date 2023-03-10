@@ -7,7 +7,7 @@ setup(
     name='brat_scoring',
     version='0.2.0',
     description='Python package for comparing BRAT annotations',
-    url='https://github.com/Lybarger/brat_scoring.git',
+    url='https://github.com/hannapethani/brat_scoring.git',
     author='Kevin Lybarger',
     author_email='klybarge@gmu.edu',
     license='MIT License',
