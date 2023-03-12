@@ -38,7 +38,6 @@ DOSE        = 'Dose'
 FREQUENCY   = 'Frequency'
 DURATION    = 'Duration'
 HISTORY     = 'History'
-LIVES_WITH  = 'Lives_With'
 
 NONE    = 'none'
 CURRENT = 'current'
