@@ -106,6 +106,8 @@ class Corpus:
         # Loop on annotated files
         for fn_txt, fn_ann in file_list:
 
+            print(fn_txt, fn_ann)
+
             # Read text file
             with open(fn_txt, 'r', encoding=ENCODING) as f:
                 text = f.read()

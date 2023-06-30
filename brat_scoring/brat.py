@@ -518,7 +518,7 @@ def get_brat_files_multi_dir(txt_path, ann_path):
 
     for t, a in zip(txt_files, ann_files):
         assert (a is None) or (Path(t).stem == Path(a).stem)
-
+    
     return (txt_files, ann_files)
 
 
