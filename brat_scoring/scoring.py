@@ -836,7 +836,7 @@ def score_events(ids, gold, predict, labeled_args, \
 
     df_summary = get_event_df(nt_corpus, np_corpus, tp_corpus)
 
-    return df_summary, df_detailed, df_diff
+    return df_summary, df_detailed, df_g_p, df_diff
 
 
 def get_path(path, description=None, ext='.csv', name='scores'):
@@ -905,7 +905,7 @@ def score_docs(gold_docs, predict_docs, labeled_args, \
     """
     Score events
     """
-    df_summary, df_detailed, df_diff = score_events(ids, gold_events, predict_events, \
+    df_summary, df_detailed, df_g_p, df_diff = score_events(ids, gold_events, predict_events, \
                             labeled_args = labeled_args,
                             score_trig = score_trig,
                             score_span = score_span,
@@ -945,7 +945,7 @@ def score_docs(gold_docs, predict_docs, labeled_args, \
             if verbose:
                 logging.info(f'Document-level scoring saved to: {f}')
 
-    return df_summary, df_detailed, df_diff
+    return df_summary, df_detailed, df_g_p, df_diff
 
 
 
@@ -983,7 +983,7 @@ def score_brat(gold_dir, predict_dir, labeled_args, \
 
     logging.info("")
     logging.info(f"Scoring underway...")
-    df_summary, df_detailed, df_diff = score_docs(gold_docs, predict_docs, \
+    df_summary, df_detailed, df_g_p, df_diff = score_docs(gold_docs, predict_docs, \
                             labeled_args = labeled_args,
                             score_trig = score_trig,
                             score_span = score_span,
@@ -998,7 +998,7 @@ def score_brat(gold_dir, predict_dir, labeled_args, \
 
     logging.info(f"Scoring complete")
 
-    return df_summary, df_detailed, df_diff
+    return df_summary, df_detailed, df_g_p, df_diff
 
 
 def score_brat_sdoh(gold_dir, predict_dir, output_path, \
@@ -1015,7 +1015,7 @@ def score_brat_sdoh(gold_dir, predict_dir, output_path, \
     if loglevel is not None:
         logging.basicConfig(level=loglevel.upper())
 
-    df_summary, df_detailed, df_diff = score_brat( \
+    df_summary, df_detailed, df_g_p, df_diff = score_brat( \
                         gold_dir = gold_dir,
                         predict_dir = predict_dir,
                         labeled_args = labeled_args, \
@@ -1028,7 +1028,7 @@ def score_brat_sdoh(gold_dir, predict_dir, output_path, \
                         description = description,
                         include_detailed = include_detailed)
 
-    return df_summary, df_detailed, df_diff
+    return df_summary, df_detailed, df_g_p, df_diff
 
 
 
