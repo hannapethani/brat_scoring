@@ -106,6 +106,7 @@ class Corpus:
         # Loop on annotated files
         for fn_txt, fn_ann in file_list:
 
+            # This code is available for debugging in future when a file can't be read
             # print(fn_txt, fn_ann)
 
             # Read text file
