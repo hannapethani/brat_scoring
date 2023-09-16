@@ -21,14 +21,14 @@ STATUS  = 'Status'
 
 
 # Span and class - new
-STATUS_TIME_             = 'status_time'
-STATUS_TIME_ATTR_        = 'status_time_attr'
+STATUS_TIME              = 'status_time'
+STATUS_TIME_ATTR        = 'status_time_attr'
 
-STATUS_EMPLOY_           = 'status_employ'
-STATUS_EMPLOY_ATTR_      = 'status_employ_attr'
+STATUS_EMPLOY           = 'status_employ'
+STATUS_EMPLOY_ATTR      = 'status_employ_attr'
 
-STATUS_HOUSING_          = 'status_housing'
-STATUS_HOUSING_ATTR_     = 'status_housing_attr'
+STATUS_HOUSING          = 'status_housing'
+STATUS_HOUSING_ATTR     = 'status_housing_attr'
 
 
 # Span only - new
@@ -59,5 +59,5 @@ OUT_OF_HOME_CARE = 'out_of_home_care'
 PRISON           = 'prison'
 HOMELESS         = 'homeless'
 
-LABELED_ARGUMENTS = [STATUS_TIME_, STATUS_EMPLOY_, STATUS_HOUSING_]
+LABELED_ARGUMENTS = [STATUS_TIME, STATUS_EMPLOY, STATUS_HOUSING]
 SPAN_ONLY_ARGUMENTS = [DOSE, DURATION, FREQUENCY, HISTORY, METHOD, TYPE]
